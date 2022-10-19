@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style id="kl-custom-fonts">
+        @import 'https://use.typekit.net/apk0zji.css';
+        @import 'https://use.typekit.net/mhn2zld.css';
+    </style>
+    <style>
+        /*
+            http://meyerweb.com/eric/tools/css/reset/
+            v2.0 | 20110126
+            License: none (public domain)
+        */
+
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed,
+        figure, figcaption, footer, header, hgroup,
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        /* HTML5 display-role reset for older browsers */
+        article, aside, details, figcaption, figure,
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+
+        body {
+            line-height: 1;
+        }
+
+        ol, ul {
+            list-style: none;
+        }
+
+        blockquote, q {
+            quotes: none;
+        }
+
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        /* --------- */
+        /* RESET END */
+        /* --------- */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'futura-pt';
+        }
+
+        /* --------- */
+        /* SLIDER    */
+        /* --------- */
+
+        .slider__container {
+            position: relative;
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+        .slider__single {
+            display: none;
+        }
+
+        .cursor {
+            cursor: pointer;
+        }
+
+        .slider__prev,
+        .slider__next {
+            cursor: pointer;
+            position: absolute;
+            top: 40%;
+            width: auto;
+            padding: 16px;
+            margin-top: -50px;
+            color: black;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            transition: transform .2s linear;
+        }
+
+        .slider__prev {
+            left: 0;
+        }
+
+        .slider__next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .slider__prev:hover,
+        .slider__next:hover {
+            color: #222;
+            transform: scale(.8);
+        }
+
+        .slider__main {
+            flex-basis: 70%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .slider__row {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slider__row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .slider__column {
+            float: left;
+            width: 15.72%;
+            margin-right: 1.03%;
+        }
+
+        .slider__thumbnail {
+            opacity: 0.6;
+            width: 136px;
+            height: 136px;
+        }
+
+        .slider__largeImage {
+            width: 100%;
+        }
+
+        .active,
+        .slider__thumbnail:hover {
+            opacity: 1;
+        }
+
+        /* --------- */
+        /* PRODUCT   */
+        /* --------- */
+
+        .section {
+            max-width: 1440px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 16px;
+            display: flex;
+        }
+
+        .section__col--left {
+            width: 67%;
+            margin-right: 2.318%;
+        }
+
+        .section__col--right {
+            width: 33%;
+            display: flex;
+            align-items: center;
+        }
+
+        .product__rating {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .product__rating--icon:after {
+            content: "★";
+            font-size: 20px;
+            width: 13px;
+            display: inline-block;
+            color: #fec600;
+        }
+
+        .product__rating--text {
+            font-family: brandon-grotesque;
+            color: #486585;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            line-height: 19px;
+            text-transform: uppercase;
+            text-decoration: none;
+            margin-left: 12px;
+            padding-top: 3px;
+        }
+
+        .product__filter label {
+            font-size: 14px;
+            line-height: 20px;
+            color: #002855;
+            padding: 5px;
+            height: auto;
+            min-width: 59px;
+            cursor: pointer;
+        }
+
+        .product__filter {
+            background-color: #f0ede9;
+            border-radius: 0;
+            border: solid 1px #f0ede9;
+            min-width: 59px;
+            min-height: 30px;
+            overflow: hidden;
+            text-align: center;
+            display: flex;
+        }
+
+        .product__filter.available:not(.soldout).active,
+        .product__filter.available:not(.soldout):hover {
+            border-color: #002855;
+        }
+
+        .product__filter.available.soldout.active label,
+        .product__filter.available.soldout:hover label,
+        .product__filter.available:not(.soldout).active label,
+        .product__filter.available:not(.soldout):hover label {
+            font-weight: 500;
+        }
+
+        .product__filter.soldout .crossed-out {
+            background: #dedfdf;
+            width: 120%;
+            height: 1px;
+            border-radius: 0;
+            transform: rotate(154deg);
+            transform-origin: 44% 50%;
+            display: block;
+            pointer-events: none;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+
+        .product__features {
+            width: 100%;
+            float: left;
+            margin-bottom: 1px;
+        }
+
+        .product__features > div {
+            background-color: #f6f6f6;
+            padding: 5px 16px;
+            width: 32.149%;
+            margin-right: 1.577%;
+            float: left;
+        }
+
+        .product__features > div:last-child {
+            margin-right: 0;
+        }
+
+        .product__features--label,
+        .product__features--value {
+            font-size: 10px;
+            line-height: 14px;
+            letter-spacing: 2px;
+            font-family: "brandon-grotesque";
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .product__features--label {
+            color: #486585;
+            margin-bottom: 8px;
+        }
+
+        .product__features--value {
+            color: #002855;
+        }
+
+        .product__name {
+            font-family: brandon-grotesque;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 55px;
+            color: #002855;
+            margin-top: 20px;
+            margin-bottom: 7px;
+            text-transform: uppercase;
+        }
+
+        .product__badge {
+            font-family: AbrahamLincoln, serif;
+            font-size: 18px;
+            line-height: 20px;
+        }
+
+        .product__badge__content {
+            background: red;
+            padding: 5px;
+            background-color: #aa9e84;
+            color: #000;
+        }
+
+        .product__price {
+            color: #002855;
+            font-size: 28px;
+            line-height: 20px;
+            letter-spacing: 1.1px;
+            font-weight: 500;
+        }
+
+        .product__description {
+            margin: 20px 0;
+            line-height: 22px;
+        }
+
+        .product__sku {
+            font-family: brandon-grotesque;
+            font-size: 10px;
+            line-height: 14px;
+            letter-spacing: 2px;
+            color: #595959;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .product__selection {
+            font-family: brandon-grotesque;
+            font-weight: 700;
+            color: #002855;
+            font-size: 14px;
+            letter-spacing: 2px;
+            line-height: 20px;
+            margin-bottom: 8px;
+        }
+
+        .product__modals__margin {
+            margin-right: 40px;
+        }
+
+        .product__fit {
+            float: right;
+            margin-top: 0;
+            font-style: normal;
+            cursor: pointer;
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            font-size: 12px;
+            line-height: 14px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            color: #002855;
+            font-family: "brandon-grotesque";
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .product__fit:before {
+            content: "";
+            position: relative;
+            background: url(https://cdn.shopify.com/s/files/1/0522/6712/2861/files/Ruler.svg?v=1661248823) center no-repeat;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            left: -8px;
+            top: 0;
+        }
+
+        .product__fit:after {
+            content: "";
+            position: relative;
+            background: #D9D9D9;
+            width: 1px;
+            height: 16px;
+            display: inline-block;
+            right: -13px;
+            top: 0;
+        }
+
+        .product__sizeChart {
+            float: right;
+            margin-top: 0;
+            font-style: normal;
+            cursor: pointer;
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            font-size: 12px;
+            line-height: 14px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            color: #002855;
+            font-family: "brandon-grotesque";
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .product__sizeChart:before {
+            content: "";
+            position: relative;
+            background: url(https://cdn.shopify.com/s/files/1/0522/6712/2861/files/CoatHanger.svg?v=1661248822) center no-repeat;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            left: -8px;
+            top: 0;
+        }
+
+        .product__info--icon {
+            font-size: 0;
+            width: 18px;
+            height: 14px;
+            background: url("https://cdn.shopify.com/s/files/1/0522/6712/2861/files/info-icon.svg?v=1620195856") center no-repeat;
+            cursor: pointer;
+            margin-right: 15px;
+            text-indent: -9999px;
+        }
+
+        .product__title {
+            font-size: 12px;
+            line-height: 14px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            color: #002855;
+            font-family: "brandon-grotesque";
+            text-transform: uppercase;
+            width: auto;
+            padding-right: 10px;
+            white-space: nowrap;
+        }
+
+        .product__fitSize {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 10px 0 10px 10px;
+            gap: 8px;
+            font-size: 14px;
+            line-height: 20px;
+            color: #0c2752;
+            background: #EDF3FC;
+            margin: 0 0 16px
+        }
+
+        .product__fitSize:before {
+            content: "";
+            position: relative;
+            background: url(https://cdn.shopify.com/s/files/1/0522/6712/2861/files/ArrowsOut.svg?v=1661331954) center no-repeat;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            left: 1px;
+            top: 0
+        }
+
+        .product__title--wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 25px 0 16px 0;
+        }
+
+        .product__options__wrapper input {
+            display: none;
+        }
+
+        .product__options__wrapper .product__filter {
+            float: left;
+            transform: translateZ(0);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            margin: 0 8px 8px 0;
+            position: relative;
+            outline: none;
+        }
+
+        .product__modals {
+            display: flex;
+        }
+
+        .product__size {
+            display: flex;
+        }
+
+        .product__color__selector {
+            border-radius: 40px;
+            border: 1px solid #000;
+            width:40px;
+            height:40px;
+            background-image: url(https://media-cdn.starapps.studio/apps/vsk/lucchese-inc/groups/153215/nv4009-j4-white.media?width=80&amp;height=80&amp;crop=top);
+        }
+        .product__variantName {
+            font-size: 10px;
+            line-height: 14px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            color: #595959;
+            font-family: brandon-grotesque;
+            text-transform: uppercase;
+        }
+
+        .product__color__label {
+            display: block;
+            margin: 15px 0 10px;
+        }
+
+        .product__notify {
+            display: none;
+        }
+
+        .product__button {
+            font-size: 1rem;
+            border-radius: 0;
+            width: 100%;
+            line-height: inherit;
+            color: #fff;
+            background-color: #002855;
+            height: 50px;
+            margin-top: 20px;
+        }
+
+        /* --------- */
+        /* MODAL     */
+        /* --------- */
+
+        .modal {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+        }
+
+        .modal.open {
+            visibility: visible;
+            opacity: 1;
+            transition-delay: 0s;
+        }
+
+        .modal__bg {
+            position: absolute;
+            background: rgba(0,0,0,.45);
+            width: 100%;
+            height: 100%;
+        }
+
+        .modal__container {
+            border-radius: 10px;
+            background: #fff;
+            position: relative;
+            padding: 30px;
+            margin-right: 5vw;
+            margin-top: 10vh;
+            min-width: 500px;
+        }
+
+        .modal__close {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            outline: none;
+            appearance: none;
+            color: red;
+            background: none;
+            border: 0px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+
+        <div class="section__col section__col--left">
+            <div class="slider__container">
+                <div class="slider__main">
+                    <div class="slider__single">
+                        <img class="slider__largeImage"
+                             src="https://cdn.shopify.com/s/files/1/0522/6712/2861/products/NV4009.J4_RightProfile_800x.jpg?v=1626801110">
+                    </div>
+                    <div class="slider__single">
+                        <img class="slider__largeImage"
+                             src="https://cdn.shopify.com/s/files/1/0522/6712/2861/products/NV4009.J4_Vamp_800x.jpg?v=1626801110">
+                    </div>
+                    <div class="slider__single">
+                        <img class="slider__largeImage"
+                             src="https://cdn.shopify.com/s/files/1/0522/6712/2861/products/NV4009.J4_Pair_800x.jpg?v=1626801110">
+                    </div>
+                    <div class="slider__single">
+                        <img class="slider__largeImage"
+                             src="https://cdn.shopify.com/s/files/1/0522/6712/2861/products/NV4009.J4_LeftProfile_800x.jpg?v=1626801110">
+                    </div>
+                    <div class="slider__single">
+                        <img class="slider__largeImage"
+                             src="https://cdn.shopify.com/s/files/1/0522/6712/2861/products/NV4009J4_R01_C19_800x.jpg?v=1626801110">
+                    </div>
+
+                    <a class="slider__prev" onclick="goToNextSlide(-1)">&#10094;</a>
+                    <a class="slider__next" onclick="goToNextSlide(1)">&#10095;</a>
+                </div>
+
+                <div class="slider__row">
+                    <div class="slider__column">
+                        <img class="slider__thumbnail cursor"
+                             src="https://cdn.shopify.com/s/files/1/0522/6712/2861/products/NV4009.J4_RightProfile_200x.jpg?v=1626801110"
+                             onclick="goToSlide(1)" alt="The Woods">
+                    </div>
+                    <div class="slider__column">
+                        <img class="slider__thumbnail cursor"
+                             src="https://cdn.shopify.com/s/files/1/0522/6712/2861/products/NV4009.J4_Vamp_200x.jpg?v=1626801110"
+                             onclick="goToSlide(2)" alt="Cinque Terre">
+                    </div>
+                    <div class="slider__column">
+                        <img class="slider__thumbnail cursor"
+                             src="https://cdn.shopify.com/s/files/1/0522/6712/2861/products/NV4009.J4_Pair_200x.jpg?v=1626801110"
+                             onclick="goToSlide(3)" alt="Mountains and fjords">
+                    </div>
+                    <div class="slider__column">
+                        <img class="slider__thumbnail cursor"
+                             src="https://cdn.shopify.com/s/files/1/0522/6712/2861/products/NV4009.J4_LeftProfile_200x.jpg?v=1626801110"
+                             onclick="goToSlide(4)" alt="Northern Lights">
+                    </div>
+                    <div class="slider__column">
+                        <img class="slider__thumbnail cursor"
+                             src="https://cdn.shopify.com/s/files/1/0522/6712/2861/products/NV4009J4_R01_C19_200x.jpg?v=1626801110"
+                             onclick="goToSlide(5)" alt="Nature and sunrise">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section__col section__col--right product_section">
+            <div class="product">
+                <div class="product__badge">
+                    <span class="product__badge__content">BEST SELLER</span>
+                </div>
+                <div class="product__info">
+                    <h1 class="product__name">Gina</h1>
+                    <div class="product__rating">
+                        <span class="product__rating--stars">
+                            <span class="product__rating--icon product__rating--icon-star"></span>
+                            <span class="product__rating--icon product__rating--icon-star"></span>
+                            <span class="product__rating--icon product__rating--icon-star"></span>
+                            <span class="product__rating--icon product__rating--icon-star"></span>
+                            <span class="product__rating--icon product__rating--icon-star"></span>
+                        </span>
+                        <a href="#" class="product__rating--text">12 Reviews</a>
+                    </div>
+                    <span class="product__price">$595.00</span>
+                </div>
+                <div class="product__description">
+                    Lucchese is thrilled to offer these game-changers inspired by Dallas’s renowned cheerleading squad and
+                    the boots they sport every game
+                </div>
+                <div class="product__selection--wrapper">
+                    <p class="product__selection"><b>YOUR SELECTION</b></p>
+                    <p class="product__sku">STYLE NO.<span class="product__sku--toUpdate">NV4009.J4-NA-B-10.5</span></p>
+                </div>
+                <div class="product__features">
+                    <div class="product__features__single">
+                        <p class="product__features--label">MATERIAL</p>
+                        <p class="product__features--value">
+                            Goat
+                        </p>
+                    </div>
+                    <div class="product__features__single">
+                        <p class="product__features--label">SHAFT HEIGHT</p>
+                        <p class="product__features--value">
+                            14"
+                        </p>
+                    </div>
+                    <div class="product__features__single">
+                        <p class="product__features--label">HEEL HEIGHT</p>
+                        <p class="product__features--value">
+                            1.75"
+                        </p>
+                    </div>
+                </div>
+                <div class="product__color">
+                    <fieldset>
+                        <label class="product__color__label">
+                            <span class="product__title">Color</span>
+                            <span class="product__variantName">White</span>
+                        </label>
+                        <div class="product__color__selector"></div>
+                    </fieldset>
+                </div>
+                <div class="product__options">
+                    <div class="product__options__wrapper">
+                        <div class="product__title--wrapper">
+                            <div class="product__size">
+                                <div class="product__title label">Size</div>
+                                <span class="product__info--icon" data-modal="modal-three">Size tooltip icon</span>
+                            </div>
+                            <div class="product__modals">
+                                <div class="product__modals__margin">
+                                    <div class="product__fit" data-modal="modal-one">
+                                        <span>FIT GUIDE</span>
+                                    </div>
+                                </div>
+                                <div class="product__sizeChart" data-modal="modal-two">
+                                    <span>SIZE CHART</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product__fitSize">Order a half size up for a wider fit</div>
+                        <!-- Variant Buttons -->
+                        <input class="swatch--6" id="swatch-0-6-6643949207725" type="radio" name="option-0" value="6" checked="">
+                        <div class="product__filter available soldout">
+                            <label data-value="6" for="swatch-0-6-6643949207725">
+                                6
+                                <span class="crossed-out" alt="Out of Stock"></span>
+                            </label>
+                        </div>
+
+                        <input class="swatch--6-5" id="swatch-0-6-5-6643949207725" type="radio" name="option-0" value="6.5">
+                        <div class="product__filter available soldout">
+                            <label data-value="6.5" for="swatch-0-6-5-6643949207725">
+                                6.5
+                                <span class="crossed-out" alt="Out of Stock"></span>
+                            </label>
+                        </div>
+
+                        <input class="swatch--7" id="swatch-0-7-6643949207725" type="radio" name="option-0" value="7" >
+                        <div class="product__filter available soldout">
+                            <label data-value="7" for="swatch-0-7-6643949207725">
+                                7
+                                <span class="crossed-out" alt="Out of Stock"></span>
+                            </label>
+                        </div>
+
+                        <input class="swatch--7-5" id="swatch-0-7-5-6643949207725" type="radio" name="option-0" value="7.5" >
+                        <div class="product__filter available soldout">
+                            <label data-value="7.5" for="swatch-0-7-5-6643949207725">
+                                7.5
+                                <span class="crossed-out" alt="Out of Stock"></span>
+                            </label>
+                        </div>
+
+                        <input class="swatch--8" id="swatch-0-8-6643949207725" type="radio" name="option-0" value="8" >
+                        <div class="product__filter available soldout">
+                            <label data-value="8" for="swatch-0-8-6643949207725">
+                                8
+                                <span class="crossed-out" alt="Out of Stock"></span>
+                            </label>
+                        </div>
+
+                        <input class="swatch--8-5" id="swatch-0-8-5-6643949207725" type="radio" name="option-0" value="8.5">
+                        <div class="product__filter available soldout">
+                            <label data-value="8.5" for="swatch-0-8-5-6643949207725">
+                                8.5
+                                <span class="crossed-out" alt="Out of Stock"></span>
+                            </label>
+                        </div>
+
+                        <input class="swatch--9" id="swatch-0-9-6643949207725" type="radio" name="option-0" value="9">
+                        <div class="product__filter available soldout">
+                            <label data-value="9" for="swatch-0-9-6643949207725">
+                                9
+                                <span class="crossed-out" alt="Out of Stock"></span>
+                            </label>
+                        </div>
+
+                        <input class="swatch--9-5" id="swatch-0-9-5-6643949207725" type="radio" name="option-0" value="9.5">
+                        <div class="product__filter available soldout">
+                            <label data-value="9.5" for="swatch-0-9-5-6643949207725">
+                                9.5
+                                <span class="crossed-out" alt="Out of Stock"></span>
+                            </label>
+                        </div>
+
+                        <input class="swatch--10" id="swatch-0-10-6643949207725" type="radio" name="option-0" value="10">
+                        <div class="product__filter available">
+                            <label data-value="10" for="swatch-0-10-6643949207725">
+                                10
+                                <span class="crossed-out" alt="Out of Stock"></span>
+                            </label>
+                        </div>
+
+                        <input class="swatch--10-5" id="swatch-0-10-5-6643949207725" type="radio" name="option-0" value="10.5">
+                        <div class="product__filter available active">
+                            <label data-value="10.5" for="swatch-0-10-5-6643949207725">
+                                10.5
+                                <span class="crossed-out" alt="Out of Stock"></span>
+                            </label>
+                        </div>
+
+                        <input class="swatch--11" id="swatch-0-11-6643949207725" type="radio" name="option-0" value="11">
+                        <div class="product__filter available soldout">
+                            <label data-value="11" for="swatch-0-11-6643949207725">
+                                11
+                                <span class="crossed-out" alt="Out of Stock"></span>
+                            </label>
+                        </div>
+
+                        <input class="swatch--11-5" id="swatch-0-11-5-6643949207725" type="radio" name="option-0" value="11.5">
+                        <div class="product__filter available soldout">
+                            <label data-value="11.5" for="swatch-0-11-5-6643949207725">
+                                11.5
+                                <span class="crossed-out" alt="Out of Stock"></span>
+                            </label>
+                        </div>
+                        <!-- /Variant Buttons -->
+                    </div>
+                </div>
+                <div class="purchase-details__buttons purchase-details__spb--false">
+                    <button type="button" class="product__button">
+                        <span class="text">Add To Bag</span>
+                    </button>
+                    <a class="product__notify product__button" href="#">Notify Me When Available</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal" id="modal-one">
+        <div class="modal__bg modal__exit"></div>
+        <div class="modal__container">
+            <h2>FIT MODAL</h2>
+            <button class="modal__close modal__exit">X</button>
+        </div>
+    </div>
+    <div class="modal" id="modal-two">
+        <div class="modal__bg modal__exit"></div>
+        <div class="modal__container">
+            <h2>SIZE MODAL</h2>
+            <button class="modal__close modal__exit">X</button>
+        </div>
+    </div>
+    <div class="modal" id="modal-three">
+        <div class="modal__bg modal__exit"></div>
+        <div class="modal__container">
+            <h2>INFO GUIDE</h2>
+            <button class="modal__close modal__exit">X</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+      // PRODUCT DETAILS SCRIPT
+      const response = {
+        "product": {
+          "id": 6643949207725,
+          "title": "Gina :: White",
+          "body_html": "Lucchese is thrilled to offer these game-changers inspired by Dallas\u2019s renowned cheerleading squad and the boots they sport every game",
+          "vendor": "lucchese-inc",
+          "product_type": "Boot",
+          "created_at": "2021-04-22T22:43:46-05:00",
+          "handle": "nv4009-j4-white",
+          "updated_at": "2022-10-17T17:18:15-05:00",
+          "published_at": "2021-04-22T22:43:46-05:00",
+          "template_suffix": "",
+          "published_scope": "global",
+          "tags": "Badge: Best-Seller, Boots, collection:cowboy boots, color-category:White, Cowboy Boots, craftmanship:entry_western, leather:Smooth, material-category:Smooth, migration_2, toe-category:Round, Wedding boots, Western, Womens, YGroup_nv4009",
+          "variants": [{
+            "id": 39675970322605,
+            "product_id": 6643949207725,
+            "title": "10.5 \/ B \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-B-10.5",
+            "position": 1,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": true,
+            "option1": "10.5",
+            "option2": "B",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-10-15T13:16:50-05:00",
+            "taxable": true,
+            "barcode": "886850374825",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970355373,
+            "product_id": 6643949207725,
+            "title": "10.5 \/ C \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-C-10.5",
+            "position": 2,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": true,
+            "option1": "10.5",
+            "option2": "C",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-03-04T14:06:09-06:00",
+            "taxable": true,
+            "barcode": "883962714143",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970388141,
+            "product_id": 6643949207725,
+            "title": "10 \/ B \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-B-10",
+            "position": 3,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": true,
+            "option1": "10",
+            "option2": "B",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-10-06T13:20:04-05:00",
+            "taxable": true,
+            "barcode": "886850374818",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970420909,
+            "product_id": 6643949207725,
+            "title": "10 \/ C \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-C-10",
+            "position": 4,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": true,
+            "option1": "10",
+            "option2": "C",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-03-04T14:06:10-06:00",
+            "taxable": true,
+            "barcode": "883962714136",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970453677,
+            "product_id": 6643949207725,
+            "title": "11.5 \/ B \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-B-11.5",
+            "position": 5,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "11.5",
+            "option2": "B",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-03-04T14:06:10-06:00",
+            "taxable": true,
+            "barcode": "886850374849",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970486445,
+            "product_id": 6643949207725,
+            "title": "11 \/ B \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-B-11",
+            "position": 6,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "11",
+            "option2": "B",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-05-19T08:41:26-05:00",
+            "taxable": true,
+            "barcode": "886850374832",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970519213,
+            "product_id": 6643949207725,
+            "title": "11 \/ C \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-C-11",
+            "position": 7,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "11",
+            "option2": "C",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-03-04T14:06:10-06:00",
+            "taxable": true,
+            "barcode": "883962714150",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970551981,
+            "product_id": 6643949207725,
+            "title": "4.5 \/ B \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-B-4.5",
+            "position": 8,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "4.5",
+            "option2": "B",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-03-04T14:06:10-06:00",
+            "taxable": true,
+            "barcode": "886850374702",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970584749,
+            "product_id": 6643949207725,
+            "title": "4 \/ B \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-B-4",
+            "position": 9,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "4",
+            "option2": "B",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-03-04T14:06:10-06:00",
+            "taxable": true,
+            "barcode": "886850374696",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970617517,
+            "product_id": 6643949207725,
+            "title": "5.5 \/ B \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-B-5.5",
+            "position": 10,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "5.5",
+            "option2": "B",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-09-08T21:16:01-05:00",
+            "taxable": true,
+            "barcode": "886850374726",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970650285,
+            "product_id": 6643949207725,
+            "title": "5.5 \/ C \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-C-5.5",
+            "position": 11,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "5.5",
+            "option2": "C",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-03-04T14:06:10-06:00",
+            "taxable": true,
+            "barcode": "883962714044",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970683053,
+            "product_id": 6643949207725,
+            "title": "5 \/ B \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-B-5",
+            "position": 12,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "5",
+            "option2": "B",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-03-04T14:06:10-06:00",
+            "taxable": true,
+            "barcode": "886850374719",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970715821,
+            "product_id": 6643949207725,
+            "title": "5 \/ C \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-C-5",
+            "position": 13,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "5",
+            "option2": "C",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-03-04T14:06:10-06:00",
+            "taxable": true,
+            "barcode": "883962714037",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970748589,
+            "product_id": 6643949207725,
+            "title": "6.5 \/ B \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-B-6.5",
+            "position": 14,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "6.5",
+            "option2": "B",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-08-23T13:20:04-05:00",
+            "taxable": true,
+            "barcode": "886850374740",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970781357,
+            "product_id": 6643949207725,
+            "title": "6.5 \/ C \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-C-6.5",
+            "position": 15,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "6.5",
+            "option2": "C",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-08-13T15:32:21-05:00",
+            "taxable": true,
+            "barcode": "883962714068",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970814125,
+            "product_id": 6643949207725,
+            "title": "6 \/ B \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-B-6",
+            "position": 16,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "6",
+            "option2": "B",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-03-04T14:06:10-06:00",
+            "taxable": true,
+            "barcode": "886850374733",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970846893,
+            "product_id": 6643949207725,
+            "title": "6 \/ C \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-C-6",
+            "position": 17,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "6",
+            "option2": "C",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-08-20T20:33:00-05:00",
+            "taxable": true,
+            "barcode": "883962714051",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970879661,
+            "product_id": 6643949207725,
+            "title": "7.5 \/ B \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-B-7.5",
+            "position": 18,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "7.5",
+            "option2": "B",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:47-05:00",
+            "updated_at": "2022-07-02T19:49:20-05:00",
+            "taxable": true,
+            "barcode": "886850374764",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970912429,
+            "product_id": 6643949207725,
+            "title": "7.5 \/ C \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-C-7.5",
+            "position": 19,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "7.5",
+            "option2": "C",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:48-05:00",
+            "updated_at": "2022-10-14T18:45:34-05:00",
+            "taxable": true,
+            "barcode": "883962714082",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970945197,
+            "product_id": 6643949207725,
+            "title": "7 \/ B \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-B-7",
+            "position": 20,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "7",
+            "option2": "B",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:48-05:00",
+            "updated_at": "2022-10-17T17:18:15-05:00",
+            "taxable": true,
+            "barcode": "886850374757",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675970977965,
+            "product_id": 6643949207725,
+            "title": "7 \/ C \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-C-7",
+            "position": 21,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "7",
+            "option2": "C",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:48-05:00",
+            "updated_at": "2022-03-04T14:06:11-06:00",
+            "taxable": true,
+            "barcode": "883962714075",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675971010733,
+            "product_id": 6643949207725,
+            "title": "8.5 \/ B \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-B-8.5",
+            "position": 22,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "8.5",
+            "option2": "B",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:48-05:00",
+            "updated_at": "2022-09-10T19:02:35-05:00",
+            "taxable": true,
+            "barcode": "886850374788",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675971043501,
+            "product_id": 6643949207725,
+            "title": "8.5 \/ C \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-C-8.5",
+            "position": 23,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "8.5",
+            "option2": "C",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:48-05:00",
+            "updated_at": "2022-03-04T14:06:11-06:00",
+            "taxable": true,
+            "barcode": "883962714105",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675971076269,
+            "product_id": 6643949207725,
+            "title": "8 \/ B \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-B-8",
+            "position": 24,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "8",
+            "option2": "B",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:48-05:00",
+            "updated_at": "2022-10-10T09:04:40-05:00",
+            "taxable": true,
+            "barcode": "886850374771",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675971141805,
+            "product_id": 6643949207725,
+            "title": "8 \/ C \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-C-8",
+            "position": 25,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "8",
+            "option2": "C",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:48-05:00",
+            "updated_at": "2022-03-04T14:06:11-06:00",
+            "taxable": true,
+            "barcode": "883962714099",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675971174573,
+            "product_id": 6643949207725,
+            "title": "9.5 \/ B \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-B-9.5",
+            "position": 26,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "9.5",
+            "option2": "B",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:48-05:00",
+            "updated_at": "2022-08-31T13:15:46-05:00",
+            "taxable": true,
+            "barcode": "886850374801",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675971207341,
+            "product_id": 6643949207725,
+            "title": "9.5 \/ C \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-C-9.5",
+            "position": 27,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "9.5",
+            "option2": "C",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:48-05:00",
+            "updated_at": "2022-03-04T14:06:11-06:00",
+            "taxable": true,
+            "barcode": "883962714129",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675971240109,
+            "product_id": 6643949207725,
+            "title": "9 \/ B \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-B-9",
+            "position": 28,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "9",
+            "option2": "B",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:48-05:00",
+            "updated_at": "2022-10-13T06:54:10-05:00",
+            "taxable": true,
+            "barcode": "886850374795",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }, {
+            "id": 39675971272877,
+            "product_id": 6643949207725,
+            "title": "9 \/ C \/ J + 4",
+            "price": "595.00",
+            "sku": "NV4009.J4-NA-C-9",
+            "position": 29,
+            "compare_at_price": "",
+            "fulfillment_service": "manual",
+            "inventory_management": "shopify",
+            "available": false,
+            "option1": "9",
+            "option2": "C",
+            "option3": "J + 4",
+            "created_at": "2021-04-22T22:43:48-05:00",
+            "updated_at": "2022-03-04T14:06:11-06:00",
+            "taxable": true,
+            "barcode": "883962714112",
+            "grams": 1814,
+            "image_id": null,
+            "weight": 4.0,
+            "weight_unit": "lb",
+            "tax_code": "PC040110",
+            "requires_shipping": true
+          }],
+          "options": [{
+            "id": 8543130845357,
+            "product_id": 6643949207725,
+            "name": "Size",
+            "position": 1,
+            "values": ["10.5", "10", "11.5", "11", "4.5", "4", "5.5", "5", "6.5", "6", "7.5", "7", "8.5", "8", "9.5", "9"]
+          }, {
+            "id": 8543130878125,
+            "product_id": 6643949207725,
+            "name": "Width",
+            "position": 2,
+            "values": ["B", "C"]
+          }, {
+            "id": 8543130910893,
+            "product_id": 6643949207725,
+            "name": "Toe + Heel",
+            "position": 3,
+            "values": ["J + 4"]
+          }],
+          "images": [{
+            "id": 28580022321325,
+            "product_id": 6643949207725,
+            "position": 1,
+            "created_at": "2021-04-22T22:43:46-05:00",
+            "updated_at": "2021-07-20T12:11:50-05:00",
+            "alt": null,
+            "width": 2560,
+            "height": 2560,
+            "src": "https:\/\/cdn.shopify.com\/s\/files\/1\/0522\/6712\/2861\/products\/NV4009.J4_RightProfile.jpg?v=1626801110",
+            "variant_ids": []
+          }, {
+            "id": 28580022288557,
+            "product_id": 6643949207725,
+            "position": 2,
+            "created_at": "2021-04-22T22:43:46-05:00",
+            "updated_at": "2021-07-20T12:11:50-05:00",
+            "alt": null,
+            "width": 2560,
+            "height": 2560,
+            "src": "https:\/\/cdn.shopify.com\/s\/files\/1\/0522\/6712\/2861\/products\/NV4009.J4_Vamp.jpg?v=1626801110",
+            "variant_ids": []
+          }, {
+            "id": 28580022419629,
+            "product_id": 6643949207725,
+            "position": 3,
+            "created_at": "2021-04-22T22:43:46-05:00",
+            "updated_at": "2021-07-20T12:11:50-05:00",
+            "alt": null,
+            "width": 2560,
+            "height": 2560,
+            "src": "https:\/\/cdn.shopify.com\/s\/files\/1\/0522\/6712\/2861\/products\/NV4009.J4_Pair.jpg?v=1626801110",
+            "variant_ids": []
+          }, {
+            "id": 28580022386861,
+            "product_id": 6643949207725,
+            "position": 4,
+            "created_at": "2021-04-22T22:43:46-05:00",
+            "updated_at": "2021-07-20T12:11:50-05:00",
+            "alt": null,
+            "width": 2560,
+            "height": 2560,
+            "src": "https:\/\/cdn.shopify.com\/s\/files\/1\/0522\/6712\/2861\/products\/NV4009.J4_LeftProfile.jpg?v=1626801110",
+            "variant_ids": []
+          }, {
+            "id": 29173682962605,
+            "product_id": 6643949207725,
+            "position": 5,
+            "created_at": "2021-06-11T05:23:13-05:00",
+            "updated_at": "2021-07-20T12:11:50-05:00",
+            "alt": null,
+            "width": 1500,
+            "height": 1500,
+            "src": "https:\/\/cdn.shopify.com\/s\/files\/1\/0522\/6712\/2861\/products\/NV4009J4_R01_C19.jpg?v=1626801110",
+            "variant_ids": []
+          }],
+          "image": {
+            "id": 28580022321325,
+            "product_id": 6643949207725,
+            "position": 1,
+            "created_at": "2021-04-22T22:43:46-05:00",
+            "updated_at": "2021-07-20T12:11:50-05:00",
+            "alt": null,
+            "width": 2560,
+            "height": 2560,
+            "src": "https:\/\/cdn.shopify.com\/s\/files\/1\/0522\/6712\/2861\/products\/NV4009.J4_RightProfile.jpg?v=1626801110",
+            "variant_ids": []
+          }
+        }
+      };
+      const filterButtons = document.getElementsByClassName('product__filter');
+      const skuToUpdate = document.querySelector('.product__sku--toUpdate');
+
+      const searchCriteria = {
+        option1: '10.5',
+        option2: 'B',
+        option3: 'J + 4',
+      }
+
+      for(const singleFilter of filterButtons) {
+        // Update phone prefix.
+        singleFilter.addEventListener('click', (event) => {
+          // Get clicked label.
+          const clicked = event.target;
+          // Get clicked label dataset.
+          const details = clicked.dataset;
+          // Set search criteria based on selected option.
+          updateSelectedSection(details.value);
+          // Update dom with selected variant.
+          setSelectedVariant();
+          // Handle active class.
+          setActiveClass(singleFilter);
+        });
+      }
+
+      const setActiveClass = (singleFilter) => {
+        for(const singleFilter of filterButtons) {
+          singleFilter.classList.remove('active');
+        }
+        singleFilter.classList.add('active');
+      }
+
+      const updateSelectedSection = (variantId) => {
+        searchCriteria.option1 = variantId;
+      }
+
+      const setSelectedVariant = () => {
+        const selectedVariant = getVariant();
+        // Destructure array.
+        const [ result ] = selectedVariant;
+        // Set value in DOM.
+        skuToUpdate.innerText = result?.sku;
+        console.log(result);
+      }
+
+      const getVariant = () => {
+        // Get all variants.
+        const { variants } = response.product;
+        // Filter out variant based on criteria.
+        return variants.filter((object) => {
+          return (
+              object.option1 == searchCriteria.option1 &&
+              object.option2 == searchCriteria.option2 &&
+              object.option3 == searchCriteria.option3
+          );
+        });
+      }
+    </script>
+    <script type="text/javascript">
+        // MODALS SCRIPT
+        const modalTriggers = document.querySelectorAll('[data-modal]');
+
+        for(const singleModalTrigger of modalTriggers) {
+          // Update phone prefix.
+          singleModalTrigger.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            // Get modal that should be triggered.
+            const modal = document.getElementById(singleModalTrigger.dataset.modal);
+            // Open that modal.
+            modal.classList.add('open');
+
+            // Query all modal exit links.
+            const exitLinks = modal.querySelectorAll('.modal__exit');
+
+            // Go through them.
+            for(const singleExitLink of exitLinks) {
+              // Attach action to the exit link.
+              singleExitLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                // Only to current modal in the loop.
+                modal.classList.remove('open');
+              });
+            }
+          });
+        }
+    </script>
+    <script type="text/javascript">
+      // SLIDER SCRIPT
+      let sliderIndex = 1;
+      triggerSlide(sliderIndex);
+
+      const goToNextSlide = (pushIndex) => {
+        triggerSlide(sliderIndex += pushIndex);
+      }
+
+      const goToSlide = (pushIndex) => {
+        triggerSlide(sliderIndex = pushIndex);
+      }
+
+      function triggerSlide(n) {
+        let i;
+        const slides = document.getElementsByClassName('slider__single');
+        const thumbnails = document.getElementsByClassName('slider__thumbnail');
+        if (n > slides.length) {
+          sliderIndex = 1
+        }
+        if (n < 1) {
+          sliderIndex = slides.length
+        }
+        // Hide slides by default.
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = 'none';
+        }
+        // Set active thumbnail based on what's clicked.
+        for (i = 0; i < thumbnails.length; i++) {
+          thumbnails[i].className = thumbnails[i].className.replace(' active', '');
+        }
+        // Set active slide.
+        slides[sliderIndex - 1].style.display = 'block';
+        thumbnails[sliderIndex - 1].className += ' active';
+      }
+    </script>
+</body>
+</html>
